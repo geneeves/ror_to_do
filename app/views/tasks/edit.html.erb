@@ -1,0 +1,16 @@
+<h3> Edit Tasks <%= @task.description %></h3>
+
+<% if @task.errors.any? %>
+  <h3>Please correct the following problems:</h3>
+  <ul>
+    <% @task.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @task, :url => "/tasks/#{@task.id}", :method => 'patch' do |f| %>
+<%= f.label :description %>
+<%= f.text_field :description %>
+<%= f.submit %>
+<% end %>

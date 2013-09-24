@@ -1,0 +1,26 @@
+<h1>ANOTHER To Do List Brought to you by Epicodus</h1>
+
+<%= form_for @task, :url => '/tasks', :method => 'post' do |f| %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+  <%= f.submit %>
+<% end %>
+
+<ul style="list-style:none">
+  <% @tasks.each do |task| %>
+    <li><%= task.description %></li>
+    <p><a href="/tasks/<%= task.id %>/edit">Edit this item</a></p>
+    <p><%= link_to 'Delete this task', task, :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
+  <% end %> 
+</ul>
+
+<% if @task.errors.any? %>
+  <h3>Please correct these problems:</h3>
+  <ul>
+    <% @task.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+   <% end %> 
+  </ul>
+<% end %>
+
+
