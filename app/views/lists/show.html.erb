@@ -1,7 +1,6 @@
-<h1>All of the Task Things</h1>
+<h1> All the Task Things </h1>
 
-
-<%= form_for @task, :url => '/tasks', :method => 'post' do |f| %>
+<%= form_for @task, :url => '/lists/<%= list.id %>', :method => 'post' do |f| %>
   <%= f.label :description %>
   <%= f.text_field :description %>
   <%= f.submit %>
@@ -14,12 +13,3 @@
     <p><%= link_to 'Delete this task', task, :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
   <% end %> 
 </ul>
-
-<% if @task.errors.any? %>
-  <h3>Please correct these problems:</h3>
-  <ul>
-    <% @task.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-   <% end %> 
-  </ul>
-<% end %>

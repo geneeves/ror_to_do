@@ -1,0 +1,13 @@
+<h1>ANOTHER To Do List Brought to you by Epicodus</h1>
+
+<%= form_for @list, :url =>'/lists', :method => 'post' do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+<% end %>
+
+<ul>
+  <% @lists.each do |list| %>
+    <li><a href="/lists/<%= list.id %>"><%= list.name %></a></li>
+  <% end %>
+</ul>
