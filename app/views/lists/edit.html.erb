@@ -1,0 +1,7 @@
+<h3> Edit List <h3>
+
+<%= form_for @list, :url => "/lists/#{@list.id}", :method => 'patch' do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+<% end %>

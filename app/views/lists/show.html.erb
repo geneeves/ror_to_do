@@ -1,15 +1,39 @@
 <h1> All the Task Things </h1>
 
-<%= form_for @task, :url => '/lists/<%= list.id %>', :method => 'post' do |f| %>
+<p><a href="/lists/<%= @list.id %>/edit">Edit this List Name</a></p>
+<p><%= link_to 'Delete this List', @list, :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
+
+<%= form_for @task do |f| %>
   <%= f.label :description %>
   <%= f.text_field :description %>
-  <%= f.submit %>
+  <%= f.hidden_field :list_id %>
+  <%= f.submit%>
 <% end %>
 
+<h3> Not Done </h3>
 <ul style="list-style:none">
-  <% @tasks.each do |task| %>
-    <li><%= task.description %></li>
-    <p><a href="/tasks/<%= task.id %>/edit">Edit this item</a></p>
-    <p><%= link_to 'Delete this task', task, :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
+  <% @list.not_done_tasks.each do |task| %>
+    <li>
+      <a href="/tasks/<%= task.id %>/edit"><%= task.description %></a>
+      <%= form_for task do |f| %>
+        <%= f.hidden_field :done, :value => true %>
+        <%= f.submit 'Done!' %>
+      <% end %>
+    </li>
   <% end %> 
 </ul>
+
+
+<h3> Done </h3>
+<ul style="list-style:none">
+  <% @list.done_tasks.each do |task| %>
+   <li>
+      <a href="/tasks/<%= task.id %>/edit"><%= task.description %></a>
+    </li>
+  <% end %> 
+</ul>
+
+
+<h2><a href="/lists">Take me back</a></h2>
+
+

@@ -1,16 +1,11 @@
 class TasksController < ApplicationController
-  # def index
-  #   @tasks = Task.all
-  #   @task = Task.new
-  # end
-
   def create
     @task = Task.new(params[:task])
     if @task.save
       flash[:notice] = 'Your new task was created.'
-      redirect_to '/tasks'
+      redirect_to "/lists/#{@task.list_id}"
     else
-      render :new
+      render '/lists/show'
     end
   end
 
@@ -22,7 +17,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.update(params[:task])
       flash[:notice] = "Task edited."
-      redirect_to '/tasks'
+      redirect_to "/lists/#{@task.list_id}"
     else
       render :edit
     end
@@ -32,6 +27,6 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:notice] = "Your task has been deleted"
-    redirect_to '/tasks'
+      redirect_to "/lists/#{@task.list_id}"
   end
 end
